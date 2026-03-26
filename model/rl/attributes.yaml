@@ -1,0 +1,88 @@
+groups:
+  - id: rl.resource.attributes
+    type: attribute_group
+    stability: experimental
+    brief: "These attributes identify the origin of the telemetry in a Reinforcement Learning system."
+    attributes:
+      - id: rl.system
+        type: string
+        requirement_level: required
+        brief: "The name of the overall reinforcement learning system/framework."
+        examples: ["nemo-rl", "ray-rllib", "verl"]
+      - id: rl.system.version
+        type: string
+        requirement_level: recommended
+        brief: "Version of the framework."
+        examples: ["1.5.0", "v2.0"]
+      - id: rl.run.id
+        type: string
+        requirement_level: required
+        brief: "Unique identifier for the training run."
+        examples: ["exp-ppo-llama3-12", "abcdef123"]
+      - id: rl.algorithm
+        type: string
+        requirement_level: required
+        brief: "Algorithm name: PPO, SAC, GRPO, etc."
+        examples: ["PPO", "GRPO", "DQN"]
+      - id: rl.model.name
+        type: string
+        requirement_level: recommended
+        brief: "Model name or checkpoint ID."
+        examples: ["llama-3-8b", "gpt-2"]
+      - id: rl.environment.name
+        type: string
+        requirement_level: required
+        brief: "Environment identifier (Gym ID, prompt dataset name)."
+        examples: ["HalfCheetah-v4", "math-prompts-v1"]
+      - id: rl.environment.type
+        type: string
+        requirement_level: recommended
+        brief: "Type of environment: simulated (Gym/Isaac), reward model (RLHF), or live production."
+        examples: ["simulated", "reward_model", "live"]
+      - id: rl.agent.count
+        type: int
+        requirement_level: opt_in
+        brief: "Number of active agents or workers. Useful for scaling metrics."
+        examples: [8, 1024]
+
+  - id: rl.context.attributes
+    type: attribute_group
+    stability: experimental
+    brief: "Attributes providing context for specific pipeline stages."
+    attributes:
+      - id: rl.loop.iteration
+        type: int
+        requirement_level: recommended
+        brief: "Iteration number of the main RL training loop."
+      - id: rl.sample.batch_size
+        type: int
+        requirement_level: opt_in
+        brief: "Number of samples/tokens per generation batch."
+      - id: rl.train.batch_size
+        type: int
+        requirement_level: opt_in
+        brief: "Number of samples per training batch."
+        examples: [512, 1024]
+      - id: rl.reward.sandbox
+        type: string
+        requirement_level: opt_in
+        brief: "Name or environment where the reward is evaluated."
+        examples: ["docker-exec-v1"]
+      - id: rl.sync.source
+        type: string
+        requirement_level: opt_in
+        brief: "Identifier for the source worker/process of synchronizing weights."
+      - id: rl.sync.destination
+        type: string
+        requirement_level: opt_in
+        brief: "Identifier for the destination worker/process receiving weights."
+      - id: rl.sync.bytes
+        type: int
+        requirement_level: opt_in
+        brief: "Number of bytes synchronized."
+        examples: [164000000]
+      - id: rl.loss.type
+        type: string
+        requirement_level: recommended
+        brief: "The specific type of loss component being recorded."
+        examples: ["policy", "value", "kl_divergence", "entropy"]

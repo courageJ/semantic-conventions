@@ -1,0 +1,74 @@
+groups:
+  - id: rl.metrics.durations
+    type: metric
+    stability: experimental
+    brief: "Duration metrics for Reinforcement Learning subsystems."
+    metrics:
+      - metric_name: rl.loop.duration
+        instrument: histogram
+        unit: "s"
+        brief: "Total time for one complete RL iteration."
+      - metric_name: rl.sample.duration
+        instrument: histogram
+        unit: "s"
+        brief: "Time spent generating rollouts."
+      - metric_name: rl.reward.duration
+        instrument: histogram
+        unit: "s"
+        brief: "Time spent running the reward model or environment step."
+      - metric_name: rl.train.duration
+        instrument: histogram
+        unit: "s"
+        brief: "Time spent executing learner updates."
+      - metric_name: rl.sync.duration
+        instrument: histogram
+        unit: "s"
+        brief: "Time spent synchronizing weights across the cluster."
+      - metric_name: rl.step.duration
+        instrument: histogram
+        unit: "s"
+        brief: "Time spent in an individual generic step (e.g., a single transition), as opposed to the full RL iteration loop."
+
+  - id: rl.metrics.throughput
+    type: metric
+    stability: experimental
+    brief: "Throughput metrics for RL subsystems."
+    metrics:
+      - metric_name: rl.sample.samples
+        instrument: counter
+        unit: "1"
+        brief: "Total samples/tokens generated."
+      - metric_name: rl.sample.episodes
+        instrument: counter
+        unit: "1"
+        brief: "Total episodes completed."
+      - metric_name: rl.train.steps
+        instrument: counter
+        unit: "1"
+        brief: "Total learner gradient steps."
+      - metric_name: rl.train.tokens
+        instrument: counter
+        unit: "{token}"
+        brief: "Total tokens processed during training."
+
+  - id: rl.metrics.health
+    type: metric
+    stability: experimental
+    brief: "Learning health and efficiency metrics."
+    metrics:
+      - metric_name: rl.train.loss
+        instrument: gauge
+        unit: "1"
+        brief: "Training loss value. Should be annotated with the rl.loss.type attribute."
+      - metric_name: rl.train.mfu
+        instrument: gauge
+        unit: "1"
+        brief: "Model Flops Utilization. Fraction from 0 to 1."
+      - metric_name: rl.environment.reward.mean
+        instrument: gauge
+        unit: "1"
+        brief: "Moving average of evaluation rewards."
+      - metric_name: rl.environment.episode.length.mean
+        instrument: gauge
+        unit: "1"
+        brief: "Average steps per episode."

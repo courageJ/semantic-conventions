@@ -1,0 +1,29 @@
+groups:
+  - id: rl.spans
+    type: span
+    stability: experimental
+    brief: "Span conventions for RL training lifecycle."
+    span_kind: internal
+    spans:
+      - span_name: rl.loop
+        brief: "The root span for a complete RL iteration. All other RL spans SHOULD be children of or linked to this span."
+        attributes:
+          - rl.loop.iteration
+      - span_name: rl.sample
+        brief: "Actor phase for generating rollouts. SHOULD be a child of rl.loop."
+        attributes:
+          - rl.sample.batch_size
+      - span_name: rl.reward
+        brief: "Reward scoring phase. SHOULD be a child of rl.loop."
+        attributes:
+          - rl.reward.sandbox
+      - span_name: rl.train
+        brief: "Learner phase for gradient updates. SHOULD be a child of rl.loop."
+        attributes:
+          - rl.train.batch_size
+      - span_name: rl.sync
+        brief: "Weight synchronization phase. SHOULD be a child of rl.loop."
+        attributes:
+          - rl.sync.source
+          - rl.sync.destination
+          - rl.sync.bytes
